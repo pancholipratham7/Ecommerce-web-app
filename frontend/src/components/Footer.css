@@ -1,0 +1,16 @@
+.footer-section {
+  position: absolute;
+  bottom: 0.7rem;
+  width: 100%;
+  font-size: 0.8rem;
+  font-weight: bolder;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
