@@ -6,9 +6,9 @@ const Footer = () => {
   return (
     <section className="footer-section">
       <footer className="footer-container">
-        <span>Copyright&nbsp;</span>
+        <span>Copyright</span>
         <CopyRight />
-        <span>&nbsp;ShopZilla</span>
+        <span>ShopZilla</span>
       </footer>
     </section>
   );

@@ -6,17 +6,19 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 const Header = () => {
   return (
     <div className="headerSection">
-      <div className="brand-name">
-        <span>ShopZilla</span>
-      </div>
-      <div className="nav-items">
-        <div className="cartNav">
-          <ShoppingCartIcon />
-          <span className="cart">CART</span>
+      <div className="headerContentContainer">
+        <div className="brand-name">
+          <span>ShopZilla</span>
         </div>
-        <div className="profileNav">
-          <AccountCircle />
-          <span>SIGN IN</span>
+        <div className="nav-items">
+          <div className="cartNav">
+            <ShoppingCartIcon />
+            <span className="cart">CART</span>
+          </div>
+          <div className="profileNav">
+            <AccountCircle />
+            <span>SIGN IN</span>
+          </div>
         </div>
       </div>
     </div>

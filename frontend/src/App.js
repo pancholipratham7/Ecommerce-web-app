@@ -1,11 +1,14 @@
 import "./App.css";
 import Header from "./components/Header.js";
 import Footer from "./components/Footer.js";
+import HomePage from "./pages/HomePage";
 function App() {
   return (
     <div className="pageContainer">
       <Header />
-      <h1>Welcome to shopZilla</h1>
+      <main className="mainContainer">
+        <HomePage />
+      </main>
       <Footer />
     </div>
   );

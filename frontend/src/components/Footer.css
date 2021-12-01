@@ -1,8 +1,5 @@
 .footer-section {
-  position: absolute;
-  bottom: 0.7rem;
   width: 100%;
-  font-size: 0.8rem;
   font-weight: bolder;
   display: flex;
   justify-content: center;
@@ -10,7 +7,12 @@
 }
 
 .footer-container {
+  font-size: 0.8rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.footer-section svg {
+  height: 1rem;
 }

@@ -2,3 +2,9 @@
   height: 100%;
   position: relative;
 }
+
+.mainContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
