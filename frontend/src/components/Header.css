@@ -21,23 +21,27 @@
   width: 30%;
 }
 
-.cartNav,
-.profileNav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.cartNav span,
-.profileNav span {
-  margin-left: 0.22rem;
-}
-
-.brand-name span {
+.brand-name a {
   font-size: 2rem;
   font-weight: bolder;
+  text-decoration: none;
+  color: white;
 }
 
-.nav-items {
+.nav-link {
+  color: white;
+  text-decoration: none;
   font-size: 1rem;
   font-weight: bold;
+}
+
+.nav-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 0.5;
+}
+
+.nav-link.active {
+  opacity: 1;
 }

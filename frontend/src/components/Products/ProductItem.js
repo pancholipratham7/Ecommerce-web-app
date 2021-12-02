@@ -1,6 +1,7 @@
 import React from "react";
 import Rating from "../Rating/Rating";
 import "./ProductItem.css";
+import { Link } from "react-router-dom";
 const ProductItem = (props) => {
   const {
     _id: productId,
@@ -14,9 +15,9 @@ const ProductItem = (props) => {
   return (
     <div className="product-item">
       <p>{name}</p>
-      <a className="product-image-link" href={`/products/${productId}`}>
+      <Link className="product-image-link" to={`/product/${productId}`}>
         <img className="productImg" src={image} alt="Product" />
-      </a>
+      </Link>
       <Rating rating={rating} />
       <span>{`${rating} (${numReviews} reviews)`}</span>
       <span className="price">{`$ ${price}`}</span>
