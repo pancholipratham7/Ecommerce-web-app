@@ -1,5 +1,17 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
+const dotenv = require("dotenv");
+
+// Loading the env variables
+dotenv.config({ path: "./config.env" });
+
+// Using cors to anable cross origin resource sharing
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
 
 // Routers
 const productApiRouter = require("./routes/productsApiRoutes");
@@ -12,6 +24,7 @@ app.get("/", (req, res, next) => {
 });
 
 // Starting the server
-const server = app.listen(2000, () => {
+const PORT = process.env.PORT;
+const server = app.listen(PORT, () => {
   console.log("Server Started");
 });

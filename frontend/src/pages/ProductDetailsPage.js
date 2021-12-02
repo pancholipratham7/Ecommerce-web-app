@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Rating from "../components/Rating/Rating";
 import classes from "./ProductDetailsPage.module.css";
 import { Link, useParams } from "react-router-dom";
-import products from "./../data/products.json";
+import axios from "axios";
 
 const ProductDetailsPage = () => {
+  // state for product
+  const [product, setProduct] = useState({});
+
   // GETTING THE PRODUCT Id from the url
   const { id: productId } = useParams();
 
-  // finding the a single product from bunch of products via id
-  const product = products.find((product) => product._id === productId);
+  useEffect(() => {
+    const fetchProductById = async () => {
+      const res = await axios.get(
+        `http://localhost:5000/api/products/${productId}`
+      );
+      setProduct(res.data.product);
+    };
+    fetchProductById();
+  }, [productId]);
   return (
     <div className={classes.productDetailPageContainer}>
       <Link className={classes["go-to-home-pageBtn"]} to="/">
@@ -47,7 +57,6 @@ const ProductDetailsPage = () => {
             </span>
           </div>
           <button
-            onClick={() => alert("hI")}
             disabled={product.countInStock === 0}
             className={classes.addToCartBtn}
           >
