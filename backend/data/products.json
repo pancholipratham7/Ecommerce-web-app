@@ -1,0 +1,74 @@
+[
+  {
+    "_id": "1",
+    "name": "Apple Airpod Headphones",
+    "description": "Bluetooth technology lets you connect it with compatible devices wirelessly High-quality AAC audio offers immersive listening experience Built-in microphone allows you to take calls while working",
+    "price": 89.99,
+    "rating": 1,
+    "countInStock": 4,
+    "numReviews": 5,
+    "image": "/images/pods2.jpg",
+    "category": "Electronics",
+    "brand": "Apple"
+  },
+  {
+    "_id": "2",
+    "name": "iPhone 11 Pro 256GB Memory",
+    "description": "Introducing the iPhone 11 Pro. A transformative triple-camera system that adds tons of capability without complexity. An unprecedented leap in battery life",
+    "price": 599.99,
+    "rating": 1.5,
+    "countInStock": 4,
+    "numReviews": 3,
+    "image": "/images/iphone.jfif",
+    "category": "Electronics",
+    "brand": "Apple"
+  },
+  {
+    "_id": "3",
+    "name": "Asus Rog Laptop",
+    "description": "Characterized by versatile imaging specs, the Canon EOS 80D further clarifies itself using a pair of robust focusing systems and an intuitive design",
+    "price": 929.99,
+    "rating": 2.5,
+    "countInStock": 4,
+    "numReviews": 7,
+    "image": "/images/rogLaptop.jfif",
+    "category": "Electronics",
+    "brand": "Apple"
+  },
+  {
+    "_id": "4",
+    "name": "Sony Playstation 5 Pro",
+    "description": "The ultimate home entertainment center starts with PlayStation. Whether you are into gaming, HD movies, television, music",
+    "price": 399.99,
+    "rating": 4,
+    "countInStock": 4,
+    "numReviews": 10,
+    "image": "/images/ps5.png",
+    "category": "Electronics",
+    "brand": "Apple"
+  },
+  {
+    "_id": "5",
+    "name": "Amazon Fire Tv Stick",
+    "description": "The ultimate home entertainment center starts with PlayStation. Whether you are into gaming, HD movies, television, music",
+    "price": 399.99,
+    "rating": 4,
+    "countInStock": 0,
+    "numReviews": 10,
+    "image": "/images/stick.jfif",
+    "category": "Electronics",
+    "brand": "Apple"
+  },
+  {
+    "_id": "6",
+    "name": "Amazon Alexa",
+    "description": "Get a better handle on your games with this Logitech LIGHTSYNC gaming mouse. The six programmable buttons allow customization for a smooth playing experience",
+    "price": 49.99,
+    "rating": 4.5,
+    "countInStock": 0,
+    "numReviews": 9,
+    "image": "/images/alexa.jpg",
+    "category": "Electronics",
+    "brand": "Apple"
+  }
+]
