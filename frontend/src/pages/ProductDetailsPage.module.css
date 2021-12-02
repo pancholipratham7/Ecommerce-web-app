@@ -1,0 +1,118 @@
+.productDetailPageContainer {
+  width: 70%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  margin-top: 3rem;
+}
+
+.productDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.productImageContainer {
+  flex-basis: 45%;
+  align-self: flex-start;
+  height: 23.52rem;
+}
+
+.productImageContainer:hover .productImage {
+  transform: translateY(-0.88rem);
+}
+
+.productImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 0.29rem;
+  box-shadow: 0 0.29rem 0.88rem 0 #d3d3d3;
+  border: 0.05rem solid #dfe6e9;
+  transition: transform 0.2s ease-out;
+}
+
+.productFullInfo {
+  align-self: flex-start;
+  flex-basis: 22%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.rating-row {
+  margin-top: 2rem;
+  margin-bottom: 1.17rem;
+  display: flex;
+  flex-direction: column;
+  border-top: 0.05rem solid rgb(180, 160, 160);
+}
+
+.price-row {
+  margin-top: 0.7rem;
+  border-top: 0.05rem solid rgb(180, 160, 160);
+  border-bottom: 0.05rem solid rgb(180, 160, 160);
+  padding: 0.7rem 0rem;
+}
+
+.productDescription {
+  font-weight: 500;
+}
+
+.product-title {
+  font-size: 2rem;
+  letter-spacing: 0.1rem;
+}
+
+.add-to-cart-section {
+  align-self: flex-start;
+  flex-basis: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 0.05rem solid lightgrey;
+  justify-content: space-between;
+}
+
+.cart-price-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  border-bottom: 0.05rem solid lightgray;
+  padding: 0.58rem 0rem;
+}
+
+.cart-item-stock-status {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  border-bottom: 0.05rem solid lightgray;
+  padding: 0.58rem 0rem;
+}
+
+.go-to-home-pageBtn {
+  text-decoration: none;
+  margin-bottom: 4.11rem;
+  color: white;
+  background-color: black;
+  border-radius: 0.29rem;
+  width: 10%;
+  text-align: center;
+  padding: 0.35rem;
+}
+
+.addToCartBtn {
+  width: 90%;
+  padding: 0.47rem;
+  background-color: black;
+  border-radius: 0.29rem;
+  margin: 1.17rem 0px;
+  color: white;
+  cursor: pointer;
+}
+
+/* If the item is out of the stock */
+.addToCartBtn[disabled] {
+  opacity: 0.3;
+  cursor: unset;
+}

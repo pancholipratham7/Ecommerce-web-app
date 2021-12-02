@@ -2,14 +2,14 @@ import React from "react";
 import Star from "@material-ui/icons/StarBorder";
 import StarHalf from "@material-ui/icons/StarHalf";
 import StarFull from "@material-ui/icons/Grade";
-import "./Rating.css";
+import classes from "./Rating.module.css";
 
 // Rating component
 
 const Rating = (props) => {
-  const { rating } = props;
+  const { rating, numReviews } = props;
   return (
-    <div className="rating-stars">
+    <div className={classes["rating-stars"]}>
       {rating >= 1 ? (
         <StarFull className="rating-star" />
       ) : rating >= 0.5 ? (
@@ -45,6 +45,7 @@ const Rating = (props) => {
       ) : (
         <Star className="rating-star" />
       )}
+      <span className={classes.f}>{`(${numReviews} reviews)`}</span>
     </div>
   );
 };

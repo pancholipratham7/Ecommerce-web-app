@@ -1,6 +1,6 @@
 import React from "react";
 import Rating from "../Rating/Rating";
-import "./ProductItem.css";
+import classes from "./ProductItem.module.css";
 import { Link } from "react-router-dom";
 const ProductItem = (props) => {
   const {
@@ -13,14 +13,16 @@ const ProductItem = (props) => {
   } = props.productDetail;
 
   return (
-    <div className="product-item">
+    <div className={classes["product-item"]}>
       <p>{name}</p>
-      <Link className="product-image-link" to={`/product/${productId}`}>
-        <img className="productImg" src={image} alt="Product" />
+      <Link
+        className={classes["product-image-link"]}
+        to={`/product/${productId}`}
+      >
+        <img className={classes.productImg} src={image} alt="Product" />
       </Link>
-      <Rating rating={rating} />
-      <span>{`${rating} (${numReviews} reviews)`}</span>
-      <span className="price">{`$ ${price}`}</span>
+      <Rating rating={rating} numReviews={numReviews} />
+      <span className={classes.price}>{`$ ${price}`}</span>
     </div>
   );
 };

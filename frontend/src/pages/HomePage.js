@@ -1,10 +1,10 @@
 import React from "react";
 import Products from "../components/Products/Products";
-import "./HomePage.css";
+import classes from "./HomePage.module.css";
 
 const HomePage = () => {
   return (
-    <div className="mainContentContainer">
+    <div className={classes.mainContentContainer}>
       <h1 style={{ letterSpacing: "3px" }}>WELCOME TO SHOPZILLA</h1>
       <Products />
     </div>

@@ -1,0 +1,12 @@
+.rating-stars {
+  width: 100%;
+  color: gold;
+  margin-top: 0.3rem;
+  display: flex;
+  align-items: center;
+}
+
+.f {
+  color: black;
+  margin-top: 0.35rem;
+}
