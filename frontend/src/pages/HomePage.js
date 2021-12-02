@@ -5,7 +5,7 @@ import "./HomePage.css";
 const HomePage = () => {
   return (
     <div className="mainContentContainer">
-      <h1>LATEST PRODUCTS</h1>
+      <h1 style={{ letterSpacing: "3px" }}>WELCOME TO SHOPZILLA</h1>
       <Products />
     </div>
   );

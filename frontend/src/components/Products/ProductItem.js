@@ -1,22 +1,25 @@
 import React from "react";
+import Rating from "../Rating/Rating";
 import "./ProductItem.css";
 const ProductItem = (props) => {
-  const { id, name, rating, numReviews, price, image } = props.productDetail;
-  console.log(props.productDetail);
+  const {
+    _id: productId,
+    name,
+    rating,
+    numReviews,
+    price,
+    image,
+  } = props.productDetail;
+
   return (
     <div className="product-item">
-      <div className="product-image">
-        <a href={`product/${id}`}>
-          <img src={image} alt="Product" />
-        </a>
-      </div>
-      <div className="productInfo">
-        <a href={`product/${id}`}>
-          <p>{name}</p>
-        </a>
-        <p>{`${rating} from ${numReviews} reviews`}</p>
-        <p className="price">${price}</p>
-      </div>
+      <p>{name}</p>
+      <a className="product-image-link" href={`/products/${productId}`}>
+        <img className="productImg" src={image} alt="Product" />
+      </a>
+      <Rating rating={rating} />
+      <span>{`${rating} (${numReviews} reviews)`}</span>
+      <span className="price">{`$ ${price}`}</span>
     </div>
   );
 };
