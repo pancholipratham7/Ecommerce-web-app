@@ -3,6 +3,7 @@ const asyncHandler = require("express-async-handler");
 const Product = require("./../models/productModel");
 
 // get all the products
+// ROUTE:/api/products
 exports.getAllProducts = asyncHandler(async (req, res, next) => {
   // getting all the products from the database
   const products = await Product.find({});
@@ -14,9 +15,9 @@ exports.getAllProducts = asyncHandler(async (req, res, next) => {
 });
 
 // get a single product
+// Route: /api/products/:id
 exports.getProduct = asyncHandler(async (req, res, next) => {
   // gettting the the particular product from the db through id
-
   const product = await Product.findById(req.params.id);
 
   if (product) {
@@ -25,10 +26,8 @@ exports.getProduct = asyncHandler(async (req, res, next) => {
       product,
     });
   } else {
-    res.status(404).json({
-      status: "failed",
-      message: "Product not find",
-    });
+    res.status(404);
+    throw new Error("Product not found");
   }
 });
 
