@@ -1,10 +1,10 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const dotenv = require("dotenv");
+const connectDb = require("./database.js");
 
-// Loading the env variables
-dotenv.config({ path: "./config.env" });
+// connecting our application to database
+connectDb();
 
 // Using cors to anable cross origin resource sharing
 app.use(
