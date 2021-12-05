@@ -7,6 +7,7 @@ exports.notFound = (req, res, next) => {
 
 // this is the express global error handler middleware
 exports.errorHandler = (err, req, res, next) => {
+  console.log(err.message);
   // sometimes the status code can be 200 so wee need to set it explicitly
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   res.status(statusCode).json({
