@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
 import Rating from "../components/Rating/Rating";
 import classes from "./ProductDetailsPage.module.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetails } from "../store/productsSlice";
 import Loader from "./../components/Loader";
 import Message from "../components/Message";
 
 const ProductDetailsPage = () => {
+  // All states needed in this component
   const dispatch = useDispatch();
   const product = useSelector((state) => state.productDetails.product);
   const { isLoading, isError, errorMsg } = useSelector((state) => state.ui);
+  const [qty, setQty] = useState(0);
+  const history = useHistory();
+
   // GETTING THE PRODUCT Id from the url
   const { id: productId } = useParams();
 
@@ -18,6 +22,27 @@ const ProductDetailsPage = () => {
   useEffect(() => {
     dispatch(getProductDetails(productId));
   }, [productId, dispatch]);
+
+  // Array for product stock
+  const stocks = [];
+  for (let i = 0; i < product.countInStock; i++) {
+    stocks.push("1");
+  }
+
+  // Handler product item qty
+  const changeQtyHandler = (e) => {
+    setQty(e.target.value);
+  };
+
+  //add to cart handler
+  const addToCartHandler = () => {
+    if (qty === 0) {
+      setQty(1);
+      history.push(`/cart/${product._id}?qty=${1}`);
+    } else {
+      history.push(`/cart/${product._id}?qty=${qty}`);
+    }
+  };
 
   return (
     <div className={classes.productDetailPageContainer}>
@@ -58,11 +83,20 @@ const ProductDetailsPage = () => {
                 {product.countInStock > 0 ? "In Stock" : "Out Of Stock"}
               </span>
             </div>
-            <div className={classes["cart-item-qty-select"]}>
-              <span>Qty:</span>
-              <span>4</span>
-            </div>
+            {product.countInStock > 0 && (
+              <div className={classes["cart-item-qty-select"]}>
+                <span>Qty:</span>
+                <select onChange={changeQtyHandler} name="qty" id="qty">
+                  {stocks.map((qty, i) => (
+                    <option key={i} value={i + 1}>
+                      {i + 1}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
             <button
+              onClick={addToCartHandler}
               disabled={product.countInStock === 0}
               className={classes.addToCartBtn}
             >

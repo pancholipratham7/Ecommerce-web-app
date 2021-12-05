@@ -116,3 +116,11 @@
   opacity: 0.3;
   cursor: unset;
 }
+
+.cart-item-qty-select {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  border-bottom: 0.05rem solid lightgray;
+  padding: 0.58rem 0rem;
+}

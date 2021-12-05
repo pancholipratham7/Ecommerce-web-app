@@ -1,20 +1,30 @@
 import classes from "./App.module.css";
 import Header from "./components/Header.js";
 import HomePage from "./pages/HomePage";
-import { Routes, Route } from "react-router-dom";
 import React from "react";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
+import CartPage from "./pages/CartPage";
+import { Route, Switch } from "react-router-dom";
 function App() {
   return (
     <div className={classes.pageContainer}>
       <Header />
       <main className={classes.mainContainer}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/cart" element={<h1>Your Shopping Cart</h1>} />
-          <Route path="/signin" element={<h1>Sign in to your account </h1>} />
-          <Route path="/product/:id" element={<ProductDetailsPage />} />
-        </Routes>
+        <Switch>
+          <Route path="/signin">
+            <h1>Sign in to your account </h1>
+          </Route>
+          <Route path="/product/:id">
+            <ProductDetailsPage />
+          </Route>
+          {/* Here we added ? on id param which means this is optional so this route will match for /cart as well as for /cart/3 */}
+          <Route path="/cart/:id?">
+            <CartPage />
+          </Route>
+          <Route path="/">
+            <HomePage />
+          </Route>
+        </Switch>
       </main>
     </div>
   );
