@@ -1,9 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import uiReducer from "./uiSlice";
 import { productsListReducer, productDetailsReducer } from "./productsSlice";
-// Creating Slices
-
-// 1.Products Slice
+import { cartReducer } from "./cartSlice";
 
 // Creating the store
 const store = configureStore({
@@ -11,6 +9,7 @@ const store = configureStore({
     productsList: productsListReducer,
     ui: uiReducer,
     productDetails: productDetailsReducer,
+    cart: cartReducer,
   },
 });
 

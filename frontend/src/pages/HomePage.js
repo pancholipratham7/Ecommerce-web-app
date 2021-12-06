@@ -20,7 +20,7 @@ const HomePage = () => {
     <div className={classes.mainContentContainer}>
       <h1 style={{ letterSpacing: "3px" }}>WELCOME TO SHOPZILLA</h1>
       {isLoading && <Loader />}
-      {isError && <Message errorMsg={errorMsg} />}
+      {isError && <Message>{errorMsg}</Message>}
       {!isLoading && !isError && <Products products={products} />}
     </div>
   );
