@@ -9,6 +9,9 @@ const middlewares = require("./middlewares/errorMiddleware");
 // connecting our application to database
 connectDb();
 
+// parsing the incoming data in req.body
+app.use(express.json());
+
 // Using cors to anable cross origin resource sharing
 app.use(
   cors({
@@ -18,9 +21,14 @@ app.use(
 
 // Routers
 const productApiRouter = require("./routes/productsApiRoutes");
+const userRouter = require("./routes/userRoutes");
 
+// Routes
 // using API router middleware for products
 app.use("/api/products", productApiRouter);
+
+// userRoutes
+app.use("/api/users", userRouter);
 
 app.get("/", (req, res, next) => {
   res.send("Hello from the server");
