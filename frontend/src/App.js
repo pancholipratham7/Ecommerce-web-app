@@ -8,6 +8,8 @@ import { Route, Switch } from "react-router-dom";
 import LoginPage from "./pages/loginPage";
 import RegisterPage from "./pages/registerPage";
 import ProfilePage from "./pages/ProfilePage";
+import ShippingPage from "./pages/shippingPage";
+import PaymentPage from "./pages/paymentPage";
 function App() {
   return (
     <div className={classes.pageContainer}>
@@ -15,7 +17,13 @@ function App() {
       <main className={classes.mainContainer}>
         <Switch>
           <Route path="/shipping">
-            <h1>Shipping Page</h1>
+            <ShippingPage />
+          </Route>
+          <Route path="/payment">
+            <PaymentPage />
+          </Route>
+          <Route path="/placeOrder">
+            <h1>Your Order</h1>
           </Route>
           <Route path="/product/:id">
             <ProductDetailsPage />

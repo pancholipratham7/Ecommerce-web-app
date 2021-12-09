@@ -1,0 +1,56 @@
+.shippingPageContainer {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shippingPageForm {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+  justify-content: space-around;
+  align-items: center;
+  height: 540px;
+  margin-top: 30px;
+  box-shadow: 0 0.29rem 0.88rem 0 #d3d3d3;
+  border: 0.05rem solid #dfe6e9;
+}
+
+.cityInput,
+.countryInput,
+.postalCodeInput,
+.addressInput {
+  display: block;
+  width: 100%;
+  background-color: rgb(236, 235, 233);
+  color: black;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 0px;
+  padding-left: 10px;
+}
+
+.countryLabel,
+.postalCodeLabel,
+.addressLabel,
+.cityLabel {
+  width: 80%;
+}
+
+.shippingPageBtn {
+  width: 50%;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding: 7px;
+  border-radius: 10px;
+}
+
+.formName {
+  font-size: 40px;
+  letter-spacing: 2px;
+}

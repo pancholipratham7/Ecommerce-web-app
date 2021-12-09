@@ -1,12 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-// cart initial state
+// cart items initial state
 const cartItemsFromStorage = localStorage.getItem("cartItems")
   ? JSON.parse(localStorage.getItem("cartItems"))
   : [];
 
+// cart shipping address initial state
+const shippingAddressFromStorage = localStorage.getItem("shippingAddress")
+  ? JSON.parse(localStorage.getItem("shippingAddress"))
+  : {};
+
 const cartInitialState = {
-  cart: { cartItems: cartItemsFromStorage },
+  cart: {
+    cartItems: cartItemsFromStorage,
+    shippingAddress: shippingAddressFromStorage,
+    paymentMethod: "",
+  },
 };
 
 // Cart slice
@@ -45,6 +54,12 @@ const cartSlice = createSlice({
       state.cart.cartItems = state.cart.cartItems.filter(
         (item) => item.id !== action.payload
       );
+    },
+    saveShippingAddress(state, action) {
+      state.cart.shippingAddress = action.payload;
+    },
+    savePaymentMethod(state, action) {
+      state.cart.paymentMethod = action.payload;
     },
   },
 });
@@ -93,4 +108,20 @@ export const removeFromCart = (id) => async (dispatch, getState) => {
     "cartItems",
     JSON.stringify(getState().cart.cart.cartItems)
   );
+};
+
+// action creator for saving the shipping address of the user
+export const saveShippingAddress = (data) => async (dispatch) => {
+  // updating the state
+  dispatch(cartActions.saveShippingAddress(data));
+  // storing the address in the local storage
+  localStorage.setItem("shippingAddress", JSON.stringify(data));
+};
+
+// action creator for saving the payment method of the user
+export const savePaymentMethod = (paymentMethod) => async (dispatch) => {
+  // updating the state
+  dispatch(cartActions.savePaymentMethod(paymentMethod));
+  // storing the payment method  in the local storage
+  localStorage.setItem("paymentMethod", JSON.stringify(paymentMethod));
 };

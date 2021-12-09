@@ -1,0 +1,46 @@
+.paymentPageContainer {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.paymentPageForm {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin-top: 60px;
+}
+
+.title {
+  font-size: larger;
+  font-weight: 900;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  font-family: sans-serif;
+}
+
+.selectMethod {
+  color: grey;
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.payment-methods-container {
+  margin-left: 1.5rem;
+}
+
+.paymentMethod {
+  font-weight: 400;
+  margin-left: 0.5rem;
+}
+
+.paymentPageBtn {
+  color: white;
+  width: 30%;
+  padding: 6px;
+  margin-top: 1.3rem;
+  border-radius: 5px;
+  background-color: black;
+}
