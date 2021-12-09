@@ -6,11 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../store/userSlice";
 import Loader from "../components/Loader";
 import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
 
   //getting the ui state
   const { errorMsg, isLoading, isError } = useSelector((state) => state.ui);
@@ -23,6 +24,14 @@ const LoginPage = () => {
   const userInfo = useSelector((state) => state.user.userLogin.userInfo);
   console.log(userInfo);
 
+  // Redirecting
+  // If the url is like this /login?redirect=shipping then if the user is logged in then we need to redirect the user
+  //to the shipping page not to the home page
+  const queryParams = new URLSearchParams(location.search);
+  const redirect = queryParams.get("redirect")
+    ? `/${queryParams.get("redirect")}`
+    : "/";
+
   //submit form
   const loginFormSubmitHandler = (e) => {
     e.preventDefault();
@@ -32,9 +41,9 @@ const LoginPage = () => {
   //  Redirecting the user if logged in
   useEffect(() => {
     if (userInfo) {
-      history.push("/");
+      history.push(redirect);
     }
-  }, [userInfo, history]);
+  }, [userInfo, history, redirect]);
 
   return (
     <div className={classes.loginPageContainer}>

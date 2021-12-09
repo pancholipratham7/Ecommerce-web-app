@@ -14,8 +14,8 @@ function App() {
       <Header />
       <main className={classes.mainContainer}>
         <Switch>
-          <Route path="/signin">
-            <h1>Sign in to your account </h1>
+          <Route path="/shipping">
+            <h1>Shipping Page</h1>
           </Route>
           <Route path="/product/:id">
             <ProductDetailsPage />

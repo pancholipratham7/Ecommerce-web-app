@@ -8,8 +8,10 @@ import "./CartPage.css";
 import Message from "../components/Message";
 import { Link } from "react-router-dom";
 import { removeFromCart } from "../store/cartSlice";
+import { useHistory } from "react-router-dom";
 const CartPage = () => {
   // Hooks
+  const history = useHistory();
   const dispatch = useDispatch();
   const params = useParams();
   const productId = params.id;
@@ -35,6 +37,11 @@ const CartPage = () => {
   // Remove from cart handler
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
+  };
+
+  // checkout handler
+  const checkoutHandler = () => {
+    history.push("/login?redirect=shipping");
   };
 
   return (
@@ -101,7 +108,9 @@ const CartPage = () => {
           </span>
         </div>
         <div className="checkout-btn-container">
-          <button className="checkout-btn">PROCEED TO CHECKOUT</button>
+          <button onClick={checkoutHandler} className="checkout-btn">
+            PROCEED TO CHECKOUT
+          </button>
         </div>
       </div>
     </div>
