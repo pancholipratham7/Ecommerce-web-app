@@ -1,0 +1,54 @@
+.loginPageContainer {
+  width: 70%;
+  margin: auto;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+  justify-content: space-around;
+  align-items: center;
+  height: 400px;
+  margin-top: 100px;
+  box-shadow: 0 0.29rem 0.88rem 0 #d3d3d3;
+  border: 0.05rem solid #dfe6e9;
+}
+
+.nameInput,
+.passwordInput {
+  display: block;
+  width: 100%;
+  background-color: rgb(236, 235, 233);
+  color: black;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 0px;
+  padding-left: 10px;
+}
+
+.emailLabel,
+.passwordLabel {
+  width: 80%;
+}
+
+.loginBtn {
+  width: 50%;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding: 7px;
+  border-radius: 10px;
+}
+
+.formName {
+  font-size: 40px;
+  letter-spacing: 2px;
+}
+
+.errorMsg {
+  width: 80%;
+}

@@ -36,6 +36,58 @@ const uiSlice = createSlice({
       state.isError = true;
       state.errorMsg = action.payload;
     },
+    userLoginRequest(state, action) {
+      state.isLoading = true;
+      state.isError = false;
+    },
+    userLoginSuccess(state, action) {
+      state.isLoading = false;
+      state.isError = false;
+    },
+    userLoginFailed(state, action) {
+      state.isLoading = false;
+      state.isError = true;
+      state.errorMsg = action.payload;
+    },
+    registerUserRequest(state, action) {
+      state.isLoading = true;
+      state.isError = false;
+    },
+    registerUserFailed(state, action) {
+      state.isLoading = false;
+      state.isError = true;
+      state.errorMsg = action.payload;
+    },
+    registerUserSuccess(state, action) {
+      state.isLoading = false;
+      state.isError = false;
+    },
+    userDetailsRequest(state, action) {
+      state.isLoading = true;
+      state.isError = false;
+    },
+    userDetailsFailed(state, action) {
+      state.isLoading = false;
+      state.isError = true;
+      state.errorMsg = action.payload;
+    },
+    userDetailsSuccess(state, action) {
+      state.isLoading = false;
+      state.isError = false;
+    },
+    userUpdateProfileRequest(state, action) {
+      state.isLoading = true;
+      state.isError = false;
+    },
+    userUpdateProfileSuccess(state, action) {
+      state.isLoading = false;
+      state.isError = false;
+    },
+    userUpdateProfileFailed(state, action) {
+      state.isLoading = false;
+      state.isError = true;
+      state.errorMsg = action.payload;
+    },
   },
 });
 

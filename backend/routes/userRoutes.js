@@ -10,6 +10,9 @@ router.route("/login").post(userController.login);
 router.route("/register").post(userController.registerUser);
 
 //get user profile route
-router.route("/profile").get(isAuthenticated, userController.getUserProfile);
+router
+  .route("/profile")
+  .get(isAuthenticated, userController.getUserProfile)
+  .put(isAuthenticated, userController.updateUserProfile);
 
 module.exports = router;

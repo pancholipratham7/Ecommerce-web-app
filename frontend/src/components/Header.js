@@ -2,9 +2,16 @@ import React from "react";
 import classes from "./Header.module.css";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { Dropdown } from "react-bootstrap";
+import { logoutUser } from "../store/userSlice";
 
 const Header = () => {
+  const history = useHistory();
+  const userInfo = useSelector((state) => state.user.userLogin.userInfo);
+  const dispatch = useDispatch();
+
   return (
     <div className={classes.headerSection}>
       <div className={classes.headerContentContainer}>
@@ -16,10 +23,27 @@ const Header = () => {
             <ShoppingCartIcon />
             CART
           </NavLink>
-          <NavLink className={classes["nav-link"]} to="/signin">
-            <AccountCircle />
-            SIGN IN
-          </NavLink>
+          {!userInfo && (
+            <NavLink className={classes["nav-link"]} to="/register">
+              <AccountCircle />
+              SIGN IN
+            </NavLink>
+          )}
+          {userInfo && (
+            <Dropdown>
+              <Dropdown.Toggle variant="danger" id="dropdown-basic">
+                {userInfo.name}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={() => history.push("/profile")}>
+                  Profile
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => dispatch(logoutUser())}>
+                  Logout
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          )}
         </div>
       </div>
     </div>
