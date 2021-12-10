@@ -8,13 +8,22 @@ const cartItemsFromStorage = localStorage.getItem("cartItems")
 // cart shipping address initial state
 const shippingAddressFromStorage = localStorage.getItem("shippingAddress")
   ? JSON.parse(localStorage.getItem("shippingAddress"))
-  : {};
+  : "";
+
+// payment method initial state
+const paymentMethodFromStorage = localStorage.getItem("paymentMethod")
+  ? JSON.parse(localStorage.getItem("paymentMethod"))
+  : "";
 
 const cartInitialState = {
   cart: {
     cartItems: cartItemsFromStorage,
     shippingAddress: shippingAddressFromStorage,
-    paymentMethod: "",
+    paymentMethod: paymentMethodFromStorage,
+    itemsPrice: null,
+    taxPrice: null,
+    shippingPrice: null,
+    totalPrice: null,
   },
 };
 
@@ -60,6 +69,12 @@ const cartSlice = createSlice({
     },
     savePaymentMethod(state, action) {
       state.cart.paymentMethod = action.payload;
+    },
+    addAllPrices(state, action) {
+      state.cart.taxPrice = Number(action.payload.taxPrice);
+      state.cart.shippingPrice = Number(action.payload.shippingPrice);
+      state.cart.totalPrice = Number(action.payload.totalPrice);
+      state.cart.itemsPrice = Number(action.payload.itemsPrice);
     },
   },
 });

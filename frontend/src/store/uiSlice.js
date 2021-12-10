@@ -88,6 +88,19 @@ const uiSlice = createSlice({
       state.isError = true;
       state.errorMsg = action.payload;
     },
+    createOrderRequest(state, action) {
+      state.isLoading = true;
+      state.isError = false;
+    },
+    createOrderFailed(state, action) {
+      state.isLoading = false;
+      state.isError = true;
+      state.errorMsg = action.payload;
+    },
+    createOrderSuccess(state, action) {
+      state.isLoading = false;
+      state.isError = false;
+    },
   },
 });
 

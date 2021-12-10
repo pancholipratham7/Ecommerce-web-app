@@ -22,6 +22,7 @@ app.use(
 // Routers
 const productApiRouter = require("./routes/productsApiRoutes");
 const userRouter = require("./routes/userRoutes");
+const orderRouter = require("./routes/orderRoutes");
 
 // Routes
 // using API router middleware for products
@@ -29,6 +30,9 @@ app.use("/api/products", productApiRouter);
 
 // userRoutes
 app.use("/api/users", userRouter);
+
+// Order routes
+app.use("/api/orders", orderRouter);
 
 app.get("/", (req, res, next) => {
   res.send("Hello from the server");

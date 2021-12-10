@@ -10,6 +10,7 @@ import RegisterPage from "./pages/registerPage";
 import ProfilePage from "./pages/ProfilePage";
 import ShippingPage from "./pages/shippingPage";
 import PaymentPage from "./pages/paymentPage";
+import PlaceOrder from "./pages/PlaceOrder";
 function App() {
   return (
     <div className={classes.pageContainer}>
@@ -23,7 +24,10 @@ function App() {
             <PaymentPage />
           </Route>
           <Route path="/placeOrder">
-            <h1>Your Order</h1>
+            <PlaceOrder />
+          </Route>
+          <Route path="/order/:id">
+            <h1>OrderId page</h1>
           </Route>
           <Route path="/product/:id">
             <ProductDetailsPage />

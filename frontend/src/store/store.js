@@ -4,6 +4,7 @@ import { productsListReducer, productDetailsReducer } from "./productsSlice";
 import { cartReducer } from "./cartSlice";
 import { userReducer } from "./userSlice";
 import { userDetailsReducer } from "./userDetailsSlice";
+import { orderCreateReducer } from "./orderCreateSlice";
 
 // Creating the store
 const store = configureStore({
@@ -14,6 +15,7 @@ const store = configureStore({
     cart: cartReducer,
     user: userReducer,
     userDetails: userDetailsReducer,
+    orderCreate: orderCreateReducer,
   },
 });
 

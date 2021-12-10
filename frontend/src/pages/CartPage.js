@@ -24,7 +24,6 @@ const CartPage = () => {
   // GETTING THE CART STATE FROM THE REDUX STORE
   const cart = useSelector((state) => state.cart.cart);
   const { cartItems } = cart;
-  console.log(cartItems);
 
   // Add to cart
   useEffect(() => {
@@ -108,9 +107,15 @@ const CartPage = () => {
           </span>
         </div>
         <div className="checkout-btn-container">
-          <button onClick={checkoutHandler} className="checkout-btn">
-            PROCEED TO CHECKOUT
-          </button>
+          {cartItems.length === 0 ? (
+            <button disabled onClick={checkoutHandler} className="checkout-btn">
+              PROCEED TO CHECKOUT
+            </button>
+          ) : (
+            <button onClick={checkoutHandler} className="checkout-btn">
+              PROCEED TO CHECKOUT
+            </button>
+          )}
         </div>
       </div>
     </div>
