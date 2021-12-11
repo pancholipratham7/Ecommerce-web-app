@@ -5,6 +5,10 @@ const isAuthenticated = require("./../middlewares/authMiddleware").protect;
 
 // Setting up different routes
 
+// creating a order with post request
 router.route("/").post(isAuthenticated, orderController.addOrderItems);
+
+// getting a order using id
+router.route("/:id").get(isAuthenticated, orderController.getOrderById);
 
 module.exports = router;

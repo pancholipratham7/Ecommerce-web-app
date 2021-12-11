@@ -3,6 +3,7 @@ import axios from "axios";
 import { uiActions } from "./uiSlice";
 const orderCreateInitialState = { order: null, success: false };
 
+// This slice will be basically useful for the /placeOrder page
 const orderCreateSlice = createSlice({
   name: "order create",
   initialState: orderCreateInitialState,

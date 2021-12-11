@@ -101,6 +101,19 @@ const uiSlice = createSlice({
       state.isLoading = false;
       state.isError = false;
     },
+    orderDetailsRequest(state, action) {
+      state.isLoading = true;
+      state.isError = false;
+    },
+    orderDetailsFailed(state, action) {
+      state.isLoading = false;
+      state.isError = true;
+      state.errorMsg = action.payload;
+    },
+    orderDetailsSuccess(state, action) {
+      state.isLoading = false;
+      state.isError = false;
+    },
   },
 });
 
