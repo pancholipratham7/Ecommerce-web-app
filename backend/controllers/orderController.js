@@ -64,3 +64,30 @@ exports.getOrderById = asyncHandler(async (req, res, next) => {
     return;
   }
 });
+
+// updating order to pay
+exports.updateOrderToPaid = asyncHandler(async (req, res, next) => {
+  // getting the order by id
+  const order = await Order.findById(req.params.id);
+
+  // If order is found then we need to upate the paid field
+  if (order) {
+    order.isPaid = true;
+    order.paidAt = Date.now();
+    // This payment result will come from paypal
+    order.paymentResult = {
+      id: req.body.id,
+      status: req.body.status,
+      update_time: req.body.update_time,
+      email_address: req.body.payer.email_address,
+    };
+
+    // upadating the order
+    const updatedOrder = await order.save();
+    res.status(200).json(updatedOrder);
+  } else {
+    res.status(404);
+    throw new Error("Order not found");
+    return;
+  }
+});

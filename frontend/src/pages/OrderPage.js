@@ -1,13 +1,17 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import classes from "./OrderPage.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "./../components/Message";
 import { useParams } from "react-router-dom";
 import Loader from "./../components/Loader";
+import { PayPalButton } from "react-paypal-button-v2";
 import {
   getOrderDetails,
   orderDetailsActions,
 } from "../store/orderDetailsSlice";
+import axios from "axios";
+import { orderPayActions, payOrder } from "../store/orderPaySlice";
+
 const OrderPage = () => {
   // Getting the id from the url
   const params = useParams();
@@ -16,9 +20,16 @@ const OrderPage = () => {
   //Hooks
   const dispatch = useDispatch();
 
+  // state for whether the paypal script is loaded or not
+  const [sdkReady, setSdkReady] = useState(false);
+
   // order details state
   const orderDetails = useSelector((state) => state.orderDetails);
-  const { order, success } = orderDetails;
+  const { order } = orderDetails;
+
+  // order pay state
+  const orderPay = useSelector((state) => state.orderPay);
+  const { success: successPay, loading: loadingPay } = orderPay;
 
   // ui state
   const ui = useSelector((state) => state.ui);
@@ -58,10 +69,45 @@ const OrderPage = () => {
 
   //Getting the order details through the id
   useEffect(() => {
-    if (!order || order._id !== orderId) {
+    const payPalScript = async () => {
+      const { data: clientId } = await axios.get(
+        "http://localhost:5000/api/config/paypal"
+      );
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+      script.async = true;
+      script.onload = () => {
+        setSdkReady(true);
+      };
+      document.body.appendChild(script);
+    };
+
+    // When the order is not loaded or success pay value is false
+    // then we need to call getOrderDetails
+    if (!order || successPay) {
+      // This reset is  done in order to avoid infinite loop
+      dispatch(orderPayActions.orderPayReset());
       dispatch(getOrderDetails(orderId));
     }
-  }, [order, orderId, dispatch]);
+    // But if the order is loaded but the payment is not done yet and the paypal script is not connected to the html page then we need to add the paypal script
+    // paypal script provides a global variable named as paypal and if it is present window.paypal that means paypal script is added to the html pagr
+    else if (!order.isPaid) {
+      if (!window.paypal) {
+        payPalScript();
+      }
+    }
+    // If the order is loaded as well as paid then we need to set the sdkready as true
+    else {
+      setSdkReady(true);
+    }
+  }, [order, orderId, successPay, dispatch]);
+
+  // Success payment handler
+  const successPaymentHandler = (paymentResult) => {
+    console.log(paymentResult);
+    dispatch(payOrder(orderId, paymentResult));
+  };
 
   return (
     <div className={classes.placeOrderPageContainer}>
@@ -95,7 +141,11 @@ const OrderPage = () => {
                 <span
                   className={classes.payment}
                 >{`Method : ${order.paymentMethod} `}</span>
-                {!order.isPaid && <Message>Not Paid</Message>}
+                {order.isPaid ? (
+                  <Message variant="success">Paid on {order.paidAt}</Message>
+                ) : (
+                  <Message>Not Paid</Message>
+                )}
               </div>
               <div className={classes["order-items-section"]}>
                 <span className={classes["order-items-section-title"]}>
@@ -144,13 +194,27 @@ const OrderPage = () => {
                   <span className={classes.s}>${order.taxPrice}</span>
                 </div>
               </div>
-              <div className={classes.d}>
+              <div className={`${classes.d} ${classes.l}`}>
                 <div>
                   <span className={classes.s}>Total</span>
                   <span className={classes.s}>${order.totalPrice}</span>
                 </div>
               </div>
               {isError && <Message variant="danger">{errorMsg}</Message>}
+              {!order.isPaid && (
+                <Fragment>
+                  {loadingPay && <Loader />}
+                  {!sdkReady ? (
+                    <Loader />
+                  ) : (
+                    <PayPalButton
+                      className="payPalBtn"
+                      amount={order.totalPrice}
+                      onSuccess={successPaymentHandler}
+                    />
+                  )}
+                </Fragment>
+              )}
             </div>
           </div>
         </Fragment>

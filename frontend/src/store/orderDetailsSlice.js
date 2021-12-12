@@ -30,6 +30,7 @@ export const orderDetailsReducer = orderDetailsSlice.reducer;
 // action creator for getting the order from backend thorugh id and updating in the redux state
 export const getOrderDetails = (id) => async (dispatch, getState) => {
   try {
+    console.log("One man army");
     //setting the loading state to true
     dispatch(uiActions.orderDetailsRequest());
 

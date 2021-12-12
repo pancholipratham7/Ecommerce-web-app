@@ -23,6 +23,7 @@ app.use(
 const productApiRouter = require("./routes/productsApiRoutes");
 const userRouter = require("./routes/userRoutes");
 const orderRouter = require("./routes/orderRoutes");
+const { route } = require("./routes/orderRoutes");
 
 // Routes
 // using API router middleware for products
@@ -33,6 +34,11 @@ app.use("/api/users", userRouter);
 
 // Order routes
 app.use("/api/orders", orderRouter);
+
+// ROUTE FOR FETCHING THE CLIENT ID FOR PAYPAL PAYMENTS
+app.use("/api/config/paypal", (req, res, next) => {
+  res.send(process.env.PAYPAL_CLIENT_ID);
+});
 
 app.get("/", (req, res, next) => {
   res.send("Hello from the server");
