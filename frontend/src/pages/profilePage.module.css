@@ -1,17 +1,18 @@
 .updateProfilePageContainer {
-  width: 70%;
+  width: 96%;
   margin: auto;
   display: flex;
+  justify-content: space-between;
 }
 
 .updateProfileForm {
   display: flex;
   flex-direction: column;
-  width: 40%;
+  flex-basis: 25%;
   justify-content: space-around;
   align-items: center;
   height: 580px;
-  margin-top: 60px;
+  margin-top: 30px;
   box-shadow: 0 0.29rem 0.88rem 0 #d3d3d3;
   border: 0.05rem solid #dfe6e9;
 }
@@ -55,4 +56,17 @@
 
 .errorMsg {
   width: 80%;
+}
+
+.my-orders-section {
+  margin-left: 20px;
+  flex-basis: 70%;
+  padding-top: 10px;
+}
+.my-orders-container {
+  margin-top: 30px;
+}
+
+.my-orders-title {
+  font-size: 2rem;
 }

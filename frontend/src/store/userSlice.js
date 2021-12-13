@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { ordersListActions } from "./ordersListSlice";
 import { uiActions } from "./uiSlice";
 import { userDetailsActions } from "./userDetailsSlice";
 
@@ -69,8 +70,14 @@ export const loginUser = (email, password) => async (dispatch) => {
 // user action creator for logging out user
 export const logoutUser = () => async (dispatch) => {
   localStorage.removeItem("userInfo");
+  // Resetting the user info
   dispatch(userActions.resetUserInfo());
+
+  // resetting the user details
   dispatch(userDetailsActions.resetUserDetails());
+
+  // resetting ordersList
+  dispatch(ordersListActions.ordersListReset());
 };
 
 // action creator for Registering user

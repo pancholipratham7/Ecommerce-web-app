@@ -5,8 +5,8 @@ const isAuthenticated = require("./../middlewares/authMiddleware").protect;
 
 // Setting up different routes
 
-// creating a order with post request
-router.route("/").post(isAuthenticated, orderController.addOrderItems);
+// getMyOrders
+router.route("/myOrders").get(isAuthenticated, orderController.getMyOrders);
 
 // getting a order using id
 router.route("/:id").get(isAuthenticated, orderController.getOrderById);
@@ -15,5 +15,8 @@ router.route("/:id").get(isAuthenticated, orderController.getOrderById);
 router
   .route("/:id/pay")
   .put(isAuthenticated, orderController.updateOrderToPaid);
+
+// creating a order with post request
+router.route("/").post(isAuthenticated, orderController.addOrderItems);
 
 module.exports = router;

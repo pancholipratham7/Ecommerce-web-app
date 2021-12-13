@@ -91,3 +91,10 @@ exports.updateOrderToPaid = asyncHandler(async (req, res, next) => {
     return;
   }
 });
+
+// get all the orders for the logged in users
+exports.getMyOrders = asyncHandler(async (req, res, next) => {
+  console.log(req.user._id);
+  const orders = await Order.find({ user: req.user._id });
+  res.json(orders);
+});
