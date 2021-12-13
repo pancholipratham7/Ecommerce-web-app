@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken").generateToken;
+const { route } = require("../routes/userRoutes");
 
 exports.login = asyncHandler(async (req, res, next) => {
   // getting the email and password from request
@@ -99,4 +100,13 @@ exports.updateUserProfile = asyncHandler(async (req, res, next) => {
     res.status(404);
     throw new Error("User not found");
   }
+});
+
+//For Admin
+// get all users
+exports.getAllUsers = asyncHandler(async (req, res, next) => {
+  // getting all the users
+  const users = await User.find({});
+
+  res.status(200).json(users);
 });

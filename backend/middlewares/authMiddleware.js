@@ -31,3 +31,14 @@ exports.protect = asyncHandler(async (req, res, next) => {
     throw new Error("Not authorized, no token");
   }
 });
+
+// middleware for checking whether the particular user is admin or not
+exports.isAdmin = asyncHandler(async (req, res, next) => {
+  // checking whether the user is admin or not
+  if (req.user && req.user.isAdmin) {
+    next();
+  } else {
+    res.status(401);
+    throw new Error("Not authorized as admin");
+  }
+});
