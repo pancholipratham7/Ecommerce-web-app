@@ -12,12 +12,16 @@ import ShippingPage from "./pages/shippingPage";
 import PaymentPage from "./pages/paymentPage";
 import PlaceOrder from "./pages/PlaceOrder";
 import OrderPage from "./pages/OrderPage";
+import UsersList from "./pages/usersList";
 function App() {
   return (
     <div className={classes.pageContainer}>
       <Header />
       <main className={classes.mainContainer}>
         <Switch>
+          <Route path="/admin/usersList">
+            <UsersList />
+          </Route>
           <Route path="/shipping">
             <ShippingPage />
           </Route>

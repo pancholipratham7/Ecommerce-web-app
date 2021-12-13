@@ -3,6 +3,7 @@ import axios from "axios";
 import { ordersListActions } from "./ordersListSlice";
 import { uiActions } from "./uiSlice";
 import { userDetailsActions } from "./userDetailsSlice";
+import { usersListActions } from "./usersListSlice";
 
 // user info from storage
 const userInfoFromStorage = localStorage.getItem("userInfo")
@@ -78,6 +79,9 @@ export const logoutUser = () => async (dispatch) => {
 
   // resetting ordersList
   dispatch(ordersListActions.ordersListReset());
+
+  // resetting users list
+  dispatch(usersListActions.ordersListReset());
 };
 
 // action creator for Registering user

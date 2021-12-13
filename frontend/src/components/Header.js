@@ -44,6 +44,28 @@ const Header = () => {
               </Dropdown.Menu>
             </Dropdown>
           )}
+          {userInfo && userInfo.isAdmin && (
+            <Dropdown>
+              <Dropdown.Toggle variant="danger" id="dropdown-basic">
+                Admin
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={() => history.push("/admin/usersList")}>
+                  Users
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => history.push("/admin.productsList")}
+                >
+                  Products
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => history.push("/admin/ordersList")}
+                >
+                  Orders
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          )}
         </div>
       </div>
     </div>
