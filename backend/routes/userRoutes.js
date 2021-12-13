@@ -16,6 +16,9 @@ router
   .get(isAuthenticated, userController.getUserProfile)
   .put(isAuthenticated, userController.updateUserProfile);
 
+// route for deleting the user
+router.route("/:id").delete(userController.deleteUser);
+
 //Admin route
 // Route to get all the users
 router.route("/").get(isAuthenticated, isAdmin, userController.getAllUsers);

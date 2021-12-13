@@ -81,7 +81,7 @@ export const logoutUser = () => async (dispatch) => {
   dispatch(ordersListActions.ordersListReset());
 
   // resetting users list
-  dispatch(usersListActions.ordersListReset());
+  dispatch(usersListActions.usersListReset());
 };
 
 // action creator for Registering user

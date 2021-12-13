@@ -110,3 +110,19 @@ exports.getAllUsers = asyncHandler(async (req, res, next) => {
 
   res.status(200).json(users);
 });
+
+// For admin
+// deleting users
+exports.deleteUser = asyncHandler(async (req, res, next) => {
+  // Finding user by the id first
+  const user = await User.findById(req.params.id);
+
+  // If user found then we will delete the user
+  if (user) {
+    await user.remove();
+    res.status(200).json("User Removed");
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});

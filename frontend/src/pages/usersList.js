@@ -10,6 +10,7 @@ import Loader from "./../components/Loader";
 import Message from "./../components/Message";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { deleteUser } from "../store/userDeleteSlice";
 
 const UsersList = () => {
   // Hooks
@@ -25,6 +26,10 @@ const UsersList = () => {
   const userLogin = useSelector((state) => state.user.userLogin);
   const { userInfo } = userLogin;
 
+  //userDeleteState
+  const userDelete = useSelector((state) => state.userDelete);
+  const { success: successDelete } = userDelete;
+
   //getting the users list from the backend and updating it in the redux state
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
@@ -32,10 +37,13 @@ const UsersList = () => {
     } else {
       history.push("/login");
     }
-  }, [dispatch, userInfo, history]);
+  }, [dispatch, userInfo, history, successDelete]);
 
   //   user delete handler
-  const userDeleteHandler = () => {};
+  const userDeleteHandler = (userId) => {
+    //   deleting the user
+    dispatch(deleteUser(userId));
+  };
 
   return (
     <div className={classes.usersListContainer}>
@@ -58,7 +66,7 @@ const UsersList = () => {
             </thead>
             <tbody>
               {users.map((user) => (
-                <tr>
+                <tr key={user._id}>
                   <td>{user._id}</td>
                   <td>{user.name}</td>
                   <td>

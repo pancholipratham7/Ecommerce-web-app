@@ -32,7 +32,7 @@ const usersListSlice = createSlice({
 export const usersListReducer = usersListSlice.reducer;
 export const usersListActions = usersListSlice.actions;
 
-// action creator for getting all orders from the backend and then updating it in the backend
+// action creator for getting all users from the backend and then updating it in the redux state
 export const getUsersList = () => async (dispatch, getState) => {
   try {
     // making the loading state as true
@@ -49,7 +49,7 @@ export const getUsersList = () => async (dispatch, getState) => {
       },
     };
 
-    // fetching orders
+    // fetching all users
     const { data } = await axios.get("http://localhost:5000/api/users", config);
 
     // updating the redux state
