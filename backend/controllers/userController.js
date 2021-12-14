@@ -126,3 +126,46 @@ exports.deleteUser = asyncHandler(async (req, res, next) => {
     throw new Error("User not found");
   }
 });
+
+// Admin protected route
+// getting the user details through id
+exports.getUserById = asyncHandler(async (req, res, next) => {
+  // getting the details of the user through id
+  const user = await User.findById(req.params.id).select("-password");
+
+  // If user found then
+  if (user) {
+    res.status(200).json(user);
+  }
+  // If user no found
+  else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
+// this is a admin protected route
+// and used for updating users
+exports.updateUserById = asyncHandler(async (req, res, next) => {
+  // Finding the user through the id
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = req.body.isAdmin;
+
+    //updating the the user
+    const updatedUser = await user.save();
+
+    res.status(200).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});

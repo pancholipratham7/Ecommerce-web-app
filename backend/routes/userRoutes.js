@@ -11,13 +11,19 @@ router.route("/login").post(userController.login);
 router.route("/register").post(userController.registerUser);
 
 //get user profile route
+//  This is not a  admin route
 router
   .route("/profile")
   .get(isAuthenticated, userController.getUserProfile)
   .put(isAuthenticated, userController.updateUserProfile);
 
-// route for deleting the user
-router.route("/:id").delete(userController.deleteUser);
+// route for deleting the user and getting the user through Id
+// these two routes are basically for admin
+router
+  .route("/:id")
+  .delete(isAuthenticated, isAdmin, userController.deleteUser)
+  .get(isAuthenticated, isAdmin, userController.getUserById)
+  .put(isAuthenticated, isAdmin, userController.updateUserById);
 
 //Admin route
 // Route to get all the users

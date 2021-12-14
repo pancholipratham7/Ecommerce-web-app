@@ -82,6 +82,9 @@ export const logoutUser = () => async (dispatch) => {
 
   // resetting users list
   dispatch(usersListActions.usersListReset());
+
+  // Resetting the ui state
+  dispatch(uiActions.uiStateReset());
 };
 
 // action creator for Registering user

@@ -45,6 +45,8 @@ const LoginPage = () => {
     }
   }, [userInfo, history, redirect]);
 
+  console.log(isLoading, isError);
+
   return (
     <div className={classes.loginPageContainer}>
       {isLoading && <Loader />}

@@ -10,6 +10,7 @@ import { orderPayReducer } from "./orderPaySlice";
 import { ordersListReducer } from "./ordersListSlice";
 import { usersListReducer } from "./usersListSlice";
 import { userDeleteReducer } from "./userDeleteSlice";
+import { updateUserReducer, userUpdateReducer } from "./userUpdateSlice";
 
 // Creating the store
 const store = configureStore({
@@ -26,6 +27,7 @@ const store = configureStore({
     ordersList: ordersListReducer,
     usersList: usersListReducer,
     userDelete: userDeleteReducer,
+    updateUser: updateUserReducer,
   },
 });
 

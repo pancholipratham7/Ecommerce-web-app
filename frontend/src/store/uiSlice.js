@@ -114,6 +114,11 @@ const uiSlice = createSlice({
       state.isLoading = false;
       state.isError = false;
     },
+    uiStateReset(state, action) {
+      state.isLoading = false;
+      state.isError = false;
+      state.errorMsg = "";
+    },
   },
 });
 
