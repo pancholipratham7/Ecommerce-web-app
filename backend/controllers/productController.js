@@ -30,12 +30,6 @@ exports.getProduct = asyncHandler(async (req, res, next) => {
   }
 });
 
-exports.updateProduct = asyncHandler(async (req, res, next) => {
-  res.status(200).json({
-    status: "success",
-  });
-});
-
 exports.deleteProduct = asyncHandler(async (req, res, next) => {
   // Finding the product by the id
   const product = await Product.findById(req.params.id);
@@ -49,8 +43,47 @@ exports.deleteProduct = asyncHandler(async (req, res, next) => {
   }
 });
 
+// Creating a new product by admin
 exports.createNewProduct = asyncHandler(async (req, res, next) => {
-  res.status(200).json({
-    status: "success",
+  console.log("Vikram Batra");
+  const product = new Product({
+    name: "Sample Name",
+    category: "Sample category",
+    brand: "Sample Brand",
+    countInStock: 0,
+    numReviews: 0,
+    price: 0,
+    user: req.user._id,
+    description: "Sample Description",
+    image: "/images/sample.jpg",
   });
+
+  const createdProduct = await product.save();
+
+  res.status(201).json(createdProduct);
+});
+
+// update product by admin
+exports.updateProduct = asyncHandler(async (req, res, next) => {
+  const { name, price, category, brand, description, countInStock, image } =
+    req.body;
+
+  // finding the product first by id
+  const product = await Product.findById(req.params.id);
+
+  if (product) {
+    product.name = name;
+    product.description = description;
+    product.countInStock = countInStock;
+    product.image = product.image;
+    product.brand = brand;
+    product.category = category;
+    product.price = price;
+
+    const updatedProduct = await product.save();
+    res.status(200).json(updatedProduct);
+  } else {
+    res.status(404);
+    throw new Error("Product not found");
+  }
 });

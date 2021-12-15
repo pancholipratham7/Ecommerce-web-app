@@ -9,12 +9,12 @@ const isAdmin = require("./../middlewares/authMiddleware").isAdmin;
 router
   .route("/")
   .get(productController.getAllProducts)
-  .post(productController.createNewProduct);
+  .post(isAuthenticated, isAdmin, productController.createNewProduct);
 
 router
   .route("/:id")
   .get(productController.getProduct)
-  .put(productController.updateProduct)
+  .put(isAuthenticated, isAdmin, productController.updateProduct)
   .delete(isAuthenticated, isAdmin, productController.deleteProduct);
 
 module.exports = router;

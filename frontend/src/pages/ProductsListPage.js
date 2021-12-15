@@ -10,6 +10,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { getProductsList } from "../store/productsSlice";
 import Add from "@material-ui/icons/Add";
 import { deleteproduct } from "../store/productDeleteSlice";
+import { createProduct } from "../store/productCreateSlice";
 
 const ProductsListPage = () => {
   // Hooks
@@ -31,14 +32,25 @@ const ProductsListPage = () => {
     success: successDelete,
   } = productDelete;
 
+  //   product Create redux state
+  const productCreate = useSelector((state) => state.productCreate);
+  const {
+    success: successCreate,
+    loading: loadingCreate,
+    newProduct,
+    error: errorCreate,
+  } = productCreate;
+
   //getting the products list from the backend and updating it in the redux state
   useEffect(() => {
     if (!userInfo || !userInfo.isAdmin) {
       history.push("/login");
+    } else if (successCreate) {
+      history.push(`/product/${newProduct._id}`);
     } else {
       dispatch(getProductsList());
     }
-  }, [dispatch, userInfo, history, successDelete]);
+  }, [dispatch, userInfo, history, successDelete, successCreate, newProduct]);
 
   //   product delete handler
   const productDeleteHandler = (id) => {
@@ -49,7 +61,9 @@ const ProductsListPage = () => {
   };
 
   //   create product handler
-  const createProductHandler = () => {};
+  const createProductHandler = () => {
+    dispatch(createProduct());
+  };
 
   return (
     <div className={classes.productsListContainer}>
@@ -63,6 +77,8 @@ const ProductsListPage = () => {
         </div>
         {loadingDelete && <Loader />}
         {errorDelete && <Message>{errorDelete}</Message>}
+        {loadingCreate && <Loader />}
+        {errorCreate && <Message>{errorCreate}</Message>}
         {loading ? (
           <Loader />
         ) : error ? (

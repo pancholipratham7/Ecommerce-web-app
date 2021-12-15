@@ -12,6 +12,7 @@ import { usersListReducer } from "./usersListSlice";
 import { userDeleteReducer } from "./userDeleteSlice";
 import { updateUserReducer, userUpdateReducer } from "./userUpdateSlice";
 import { productDeleteReducer } from "./productDeleteSlice";
+import { productCreateReducer } from "./productCreateSlice";
 
 // Creating the store
 const store = configureStore({
@@ -30,6 +31,7 @@ const store = configureStore({
     userDelete: userDeleteReducer,
     updateUser: updateUserReducer,
     productDelete: productDeleteReducer,
+    productCreate: productCreateReducer,
   },
 });
 
