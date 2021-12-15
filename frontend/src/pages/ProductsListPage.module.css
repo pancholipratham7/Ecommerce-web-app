@@ -1,0 +1,18 @@
+.productsListContainer {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 2rem;
+}
+
+.productsListTableContainer {
+  margin-top: 2rem;
+}
+
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

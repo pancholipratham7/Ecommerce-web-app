@@ -54,7 +54,7 @@ const Header = () => {
                   Users
                 </Dropdown.Item>
                 <Dropdown.Item
-                  onClick={() => history.push("/admin.productsList")}
+                  onClick={() => history.push("/admin/productsList")}
                 >
                   Products
                 </Dropdown.Item>

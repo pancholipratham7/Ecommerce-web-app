@@ -11,6 +11,7 @@ import { ordersListReducer } from "./ordersListSlice";
 import { usersListReducer } from "./usersListSlice";
 import { userDeleteReducer } from "./userDeleteSlice";
 import { updateUserReducer, userUpdateReducer } from "./userUpdateSlice";
+import { productDeleteReducer } from "./productDeleteSlice";
 
 // Creating the store
 const store = configureStore({
@@ -28,6 +29,7 @@ const store = configureStore({
     usersList: usersListReducer,
     userDelete: userDeleteReducer,
     updateUser: updateUserReducer,
+    productDelete: productDeleteReducer,
   },
 });
 

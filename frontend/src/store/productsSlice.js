@@ -7,31 +7,46 @@ import axios from "axios";
 // productsList initial state
 const productsListInitialState = {
   products: [],
+  error: null,
+  loading: false,
 };
 
 // Creating productsList slice
 const productsListSlice = createSlice({
   initialState: productsListInitialState,
-  name: "Latest Products",
+  name: "Products List",
   reducers: {
-    setProductList(state, action) {
+    productsListRequest(state, action) {
+      state.loading = true;
+    },
+    productsListSuccess(state, action) {
       state.products = [...action.payload];
+      state.loading = false;
+      state.error = null;
+    },
+    productsListFailed(state, action) {
+      state.error = action.payload;
+      state.loading = false;
+    },
+    productsListReset(state, action) {
+      state.products = [];
+      state.loading = false;
+      state.error = null;
     },
   },
 });
 
-export const productsActions = productsListSlice.actions;
+export const productsListActions = productsListSlice.actions;
 export const productsListReducer = productsListSlice.reducer;
 
 // action creator for getting latest products
 export const getProductsList = () => async (dispatch) => {
   try {
-    dispatch(uiActions.productListRequest());
+    dispatch(productsListActions.productsListRequest());
     let res = await axios.get("http://localhost:5000/api/products");
-    dispatch(uiActions.productListSuccess());
-    dispatch(productsActions.setProductList(res.data.products));
+    dispatch(productsListActions.productsListSuccess(res.data.products));
   } catch (err) {
-    dispatch(uiActions.productsListFailed(err.response.data.message));
+    dispatch(productsListActions.productsListFailed(err.response.data.message));
   }
 };
 

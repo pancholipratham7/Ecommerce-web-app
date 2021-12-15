@@ -9,8 +9,8 @@ import Message from "../components/Message";
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.productsList.products);
-  const { isLoading, isError, errorMsg } = useSelector((state) => state.ui);
+  const productsList = useSelector((state) => state.productsList);
+  const { loading, error, products } = productsList;
 
   useEffect(() => {
     dispatch(getProductsList());
@@ -19,9 +19,9 @@ const HomePage = () => {
   return (
     <div className={classes.mainContentContainer}>
       <h1 style={{ letterSpacing: "3px" }}>WELCOME TO SHOPZILLA</h1>
-      {isLoading && <Loader />}
-      {isError && <Message>{errorMsg}</Message>}
-      {!isLoading && !isError && <Products products={products} />}
+      {loading && <Loader />}
+      {error && <Message>{error}</Message>}
+      {!loading && !error && <Products products={products} />}
     </div>
   );
 };
