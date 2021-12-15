@@ -1,0 +1,77 @@
+.productEditPageContainer {
+  width: 70%;
+  margin: auto;
+}
+
+.productEditForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+  justify-content: space-around;
+  align-items: center;
+  height: 750px;
+  margin-top: 60px;
+  box-shadow: 0 0.29rem 0.88rem 0 #5a5757;
+  border: 0.05rem solid #dfe6e9;
+}
+
+.categoryInput,
+.nameInput,
+.priceInput,
+.descriptionInput,
+.countInStockInput,
+.imageInput,
+.brandInput {
+  display: block;
+  width: 100%;
+  background-color: rgb(236, 235, 233);
+  color: black;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 0px;
+  padding-left: 10px;
+}
+
+.priceLabel,
+.nameLabel,
+.categoryLabel,
+.brandLabel,
+.descriptionLabel,
+.countInStockLabel,
+.imageLabel {
+  width: 90%;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.updateBtn {
+  width: 50%;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.formName {
+  font-size: 40px;
+  letter-spacing: 2px;
+}
+
+.errorMsg {
+  width: 80%;
+}
+
+.isAdminContainer span {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-left: 0.4rem;
+}
+
+.isAdminContainer input {
+  margin-top: 0.11rem;
+  margin-left: 0.4rem;
+}

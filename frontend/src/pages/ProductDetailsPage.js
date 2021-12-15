@@ -10,8 +10,8 @@ import Message from "../components/Message";
 const ProductDetailsPage = () => {
   // All states needed in this component
   const dispatch = useDispatch();
-  const product = useSelector((state) => state.productDetails.product);
-  const { isLoading, isError, errorMsg } = useSelector((state) => state.ui);
+  const productDetails = useSelector((state) => state.productDetails);
+  const { loading, error, product } = productDetails;
   const [qty, setQty] = useState(0);
   const history = useHistory();
 
@@ -49,9 +49,9 @@ const ProductDetailsPage = () => {
       <Link className={classes["go-to-home-pageBtn"]} to="/">
         Go Back
       </Link>
-      {isLoading && <Loader />}
-      {isError && <Message errorMsg={errorMsg} />}
-      {!isLoading && !isError && (
+      {loading && <Loader />}
+      {error && <Message errorMsg={error} />}
+      {!loading && !error && (
         <div className={classes["productDetails"]}>
           <div className={classes["productImageContainer"]}>
             <img

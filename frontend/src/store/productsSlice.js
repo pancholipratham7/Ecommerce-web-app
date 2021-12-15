@@ -51,30 +51,48 @@ export const getProductsList = () => async (dispatch) => {
 };
 
 // Creating product details slice
-const productDetailsInitialState = { product: { reviews: [] } };
+const productDetailsInitialState = {
+  product: { reviews: [] },
+  loading: false,
+  error: null,
+};
 const productDetailsSlice = createSlice({
   name: "Product Details",
   initialState: productDetailsInitialState,
   reducers: {
-    setProductDetails(state, action) {
+    productDetailsSuccess(state, action) {
       state.product = action.payload;
+      state.loading = false;
+    },
+    productDetailsRequest(state, action) {
+      state.loading = true;
+    },
+    productDetailsFailed(state, action) {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    productDetailsReset(state, action) {
+      state.loading = false;
+      state.error = null;
+      state.product = { reviews: [] };
     },
   },
 });
 
+export const productDetailsActions = productDetailsSlice.actions;
+export const productDetailsReducer = productDetailsSlice.reducer;
+
 // Action creator for getting product details
 export const getProductDetails = (productId) => async (dispatch) => {
   try {
-    dispatch(uiActions.productDetailsRequest());
+    dispatch(productDetailsActions.productDetailsRequest());
     const res = await axios.get(
       `http://localhost:5000/api/products/${productId}`
     );
-    dispatch(uiActions.productDetailsSuccess());
-    dispatch(productDetailsActions.setProductDetails(res.data.product));
+    dispatch(productDetailsActions.productDetailsSuccess(res.data.product));
   } catch (err) {
-    dispatch(uiActions.productsDetailsFailed(err.response.data.message));
+    dispatch(
+      productDetailsActions.productsDetailsFailed(err.response.data.message)
+    );
   }
 };
-
-export const productDetailsActions = productDetailsSlice.actions;
-export const productDetailsReducer = productDetailsSlice.reducer;

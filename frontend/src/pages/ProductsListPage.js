@@ -104,7 +104,7 @@ const ProductsListPage = () => {
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
                   <td>
-                    <Link to={`/admin/user/${product._id}/edit`}>
+                    <Link to={`/admin/product/${product._id}/edit`}>
                       <Button variant="light" className="btn-sm">
                         <EditIcon />
                       </Button>
