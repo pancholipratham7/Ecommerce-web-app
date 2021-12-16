@@ -10,7 +10,12 @@ import {
   orderDetailsActions,
 } from "../store/orderDetailsSlice";
 import axios from "axios";
+import { Button } from "react-bootstrap";
 import { orderPayActions, payOrder } from "../store/orderPaySlice";
+import {
+  markAsDeliveredOrder,
+  orderDeliveredActions,
+} from "../store/orderDeliveredSlice";
 
 const OrderPage = () => {
   // Getting the id from the url
@@ -23,6 +28,9 @@ const OrderPage = () => {
   // state for whether the paypal script is loaded or not
   const [sdkReady, setSdkReady] = useState(false);
 
+  // userInfo details state
+  const userInfo = useSelector((state) => state.user.userLogin.userInfo);
+
   // order details state
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order } = orderDetails;
@@ -30,6 +38,14 @@ const OrderPage = () => {
   // order pay state
   const orderPay = useSelector((state) => state.orderPay);
   const { success: successPay, loading: loadingPay } = orderPay;
+
+  // order delivered state
+  const orderDelivered = useSelector((state) => state.orderDelivered);
+  const {
+    success: successDelivered,
+    loading: loadingDelivered,
+    error: errorDelivered,
+  } = orderDelivered;
 
   // ui state
   const ui = useSelector((state) => state.ui);
@@ -85,8 +101,9 @@ const OrderPage = () => {
 
     // When the order is not loaded or success pay value is false
     // then we need to call getOrderDetails
-    if (!order || successPay) {
+    if (!order || successPay || successDelivered) {
       // This reset is  done in order to avoid infinite loop
+      dispatch(orderDeliveredActions.orderDeliveredReset());
       dispatch(orderPayActions.orderPayReset());
       dispatch(getOrderDetails(orderId));
     }
@@ -101,12 +118,18 @@ const OrderPage = () => {
     else {
       setSdkReady(true);
     }
-  }, [order, orderId, successPay, dispatch]);
+  }, [order, orderId, successPay, dispatch, successDelivered]);
 
   // Success payment handler
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult);
     dispatch(payOrder(orderId, paymentResult));
+  };
+
+  // mark as delivered handler
+  const markAsDeliveredHandler = (orderId) => {
+    // marking order as delivered
+    dispatch(markAsDeliveredOrder(orderId));
   };
 
   return (
@@ -132,7 +155,11 @@ const OrderPage = () => {
                 <span className={classes.address}>
                   {`Address : ${order.shippingAddress.address}, ${order.shippingAddress.city} ${order.shippingAddress.postalCode}, ${order.shippingAddress.country}`}
                 </span>
-                {!order.isDelivered && <Message>Not Delivered</Message>}
+                {order.isDelivered ? (
+                  <Message variant="success">{`Delivered at ${order.deliveredAt}`}</Message>
+                ) : (
+                  <Message>Not Delivered</Message>
+                )}
               </div>
               <div className={classes["payment-method-section"]}>
                 <span className={classes["payment-section-title"]}>
@@ -201,6 +228,14 @@ const OrderPage = () => {
                 </div>
               </div>
               {isError && <Message variant="danger">{errorMsg}</Message>}
+              {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                <Button
+                  onClick={() => markAsDeliveredHandler(order._id)}
+                  variant="dark"
+                >
+                  Mark As Delivered
+                </Button>
+              )}
               {!order.isPaid && (
                 <Fragment>
                   {loadingPay && <Loader />}

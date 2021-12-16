@@ -92,9 +92,32 @@ exports.updateOrderToPaid = asyncHandler(async (req, res, next) => {
   }
 });
 
+// Mark the orders as delivered
+exports.markOrderAsDelivered = asyncHandler(async (req, res, next) => {
+  // First finding the order by id
+  const order = await Order.findById(req.params.id);
+
+  // If order found then marking it as delivered
+  if (order) {
+    order.isDelivered = true;
+    order.deliveredAt = Date.now();
+    const updatedOrder = await order.save();
+    res.json(updatedOrder);
+  } else {
+    res.status(404).json("Order not found");
+  }
+});
+
 // get all the orders for the logged in users
 exports.getMyOrders = asyncHandler(async (req, res, next) => {
   console.log(req.user._id);
   const orders = await Order.find({ user: req.user._id });
+  res.json(orders);
+});
+
+// Admin route
+// Get all the orders
+exports.getAllOrders = asyncHandler(async (req, res, next) => {
+  const orders = await Order.find({}).populate("user", "name emaiL");
   res.json(orders);
 });

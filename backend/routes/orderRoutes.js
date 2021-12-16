@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const orderController = require("./../controllers/orderController");
 const isAuthenticated = require("./../middlewares/authMiddleware").protect;
+const isAdmin = require("./../middlewares/authMiddleware").isAdmin;
 
 // Setting up different routes
 
@@ -16,7 +17,15 @@ router
   .route("/:id/pay")
   .put(isAuthenticated, orderController.updateOrderToPaid);
 
+//delivered route
+router
+  .route("/:id/deliver")
+  .put(isAuthenticated, isAdmin, orderController.markOrderAsDelivered);
+
 // creating a order with post request
 router.route("/").post(isAuthenticated, orderController.addOrderItems);
+
+// getting all orders admin
+router.route("/").get(isAuthenticated, isAdmin, orderController.getAllOrders);
 
 module.exports = router;

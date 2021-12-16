@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const connectDb = require("./database.js");
+const path = require("path");
 
 // importing all the middlewares needed
 const middlewares = require("./middlewares/errorMiddleware");
@@ -23,7 +24,6 @@ app.use(
 const productApiRouter = require("./routes/productsApiRoutes");
 const userRouter = require("./routes/userRoutes");
 const orderRouter = require("./routes/orderRoutes");
-const { route } = require("./routes/orderRoutes");
 
 // Routes
 // using API router middleware for products

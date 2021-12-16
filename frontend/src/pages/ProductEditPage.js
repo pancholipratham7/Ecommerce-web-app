@@ -5,6 +5,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { getProductDetails } from "../store/productsSlice";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import { updateProductByAdmin } from "../store/productUpdateSlice";
 
 const ProductEditPage = () => {
   // Hooks
@@ -31,12 +32,23 @@ const ProductEditPage = () => {
   const productDetails = useSelector((state) => state.productDetails);
   const { product, loading, error } = productDetails;
 
+  //   product update redux state
+  const updateProduct = useSelector((state) => state.updateProduct);
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate,
+  } = updateProduct;
+
   useEffect(() => {
     // If user is not logged in then redirecting the user to the login page
     if (!userInfo && !userInfo.name) {
       history.push("/login");
     }
-
+    // If successfully updated the product then redirecting the user to the productsListPage
+    else if (successUpdate) {
+      history.push("/admin/productsList");
+    }
     // If productDetails not present then we need to fetch the product Details
     else if (!product || !product.name || product._id !== productId) {
       dispatch(getProductDetails(productId));
@@ -50,16 +62,39 @@ const ProductEditPage = () => {
       setPrice(product.price);
       setCountInStock(product.countInStock);
     }
-  }, [dispatch, product, productId, userInfo, history]);
+  }, [dispatch, product, productId, userInfo, history, successUpdate]);
+
+  //   product edit form submit handler
+  const productEditFormSubmitHandler = (e) => {
+    e.preventDefault();
+    // Updating the product
+    dispatch(
+      updateProductByAdmin({
+        _id: productId,
+        name,
+        brand,
+        category,
+        price,
+        countInStock,
+        image,
+        description,
+      })
+    );
+  };
 
   return (
     <div className={classes.productEditPageContainer}>
+      {loadingUpdate && <Loader />}
+      {errorUpdate && <Message>errorUpdate</Message>}
       {loading ? (
         <Loader />
       ) : error ? (
         <Message>{error}</Message>
       ) : (
-        <form className={classes.productEditForm}>
+        <form
+          onSubmit={productEditFormSubmitHandler}
+          className={classes.productEditForm}
+        >
           <span className={classes.formName}>Edit Product</span>
           <label className={classes.nameLabel}>
             Name:

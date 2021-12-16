@@ -16,12 +16,16 @@ import UsersList from "./pages/usersList";
 import UserEditPage from "./pages/UserEditPage";
 import ProductsListPage from "./pages/ProductsListPage";
 import ProductEditPage from "./pages/ProductEditPage";
+import AllOrdersList from "./pages/allOrdersListPage";
 function App() {
   return (
     <div className={classes.pageContainer}>
       <Header />
       <main className={classes.mainContainer}>
         <Switch>
+          <Route path="/admin/ordersList">
+            <AllOrdersList />
+          </Route>
           <Route path="/admin/product/:id/edit">
             <ProductEditPage />
           </Route>
