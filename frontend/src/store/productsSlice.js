@@ -9,6 +9,8 @@ const productsListInitialState = {
   products: [],
   error: null,
   loading: false,
+  page: "",
+  pages: "",
 };
 
 // Creating productsList slice
@@ -20,9 +22,11 @@ const productsListSlice = createSlice({
       state.loading = true;
     },
     productsListSuccess(state, action) {
-      state.products = [...action.payload];
+      state.products = [...action.payload.products];
       state.loading = false;
       state.error = null;
+      state.pages = action.payload.pages;
+      state.page = action.payload.page;
     },
     productsListFailed(state, action) {
       state.error = action.payload;
@@ -41,14 +45,14 @@ export const productsListReducer = productsListSlice.reducer;
 
 // action creator for getting latest products
 export const getProductsList =
-  (keyword = "") =>
+  (keyword = "", pageNumber = "") =>
   async (dispatch) => {
     try {
       dispatch(productsListActions.productsListRequest());
       let res = await axios.get(
-        `http://localhost:5000/api/products?keyword=${keyword}`
+        `http://localhost:5000/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
       );
-      dispatch(productsListActions.productsListSuccess(res.data.products));
+      dispatch(productsListActions.productsListSuccess(res.data));
     } catch (err) {
       dispatch(
         productsListActions.productsListFailed(err.response.data.message)

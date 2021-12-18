@@ -5,6 +5,13 @@ const Product = require("./../models/productModel");
 // get all the products
 // ROUTE:/api/products
 exports.getAllProducts = asyncHandler(async (req, res, next) => {
+  // setting the page size
+  // which basically determine the no of products on the page
+  const pageSize = 3;
+
+  // getting the page from the url
+  const page = req.query.pageNumber || 1;
+
   // if keyword is present then getting hold of it
   const keyword = req.query.keyword
     ? {
@@ -16,11 +23,18 @@ exports.getAllProducts = asyncHandler(async (req, res, next) => {
       }
     : {};
 
+  // Counting the no of products
+  const productCount = await Product.count({ ...keyword });
+
   // getting all the products from the database
-  const products = await Product.find({ ...keyword });
+  const products = await Product.find({ ...keyword })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+
   res.status(200).json({
-    status: "success",
     products,
+    page,
+    pages: Math.ceil(productCount / pageSize),
   });
 });
 

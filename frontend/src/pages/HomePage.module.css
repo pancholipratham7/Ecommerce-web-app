@@ -6,3 +6,11 @@
   text-align: center;
   margin-top: 1.3rem;
 }
+
+.paginationContainer {
+  margin-top: 3rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

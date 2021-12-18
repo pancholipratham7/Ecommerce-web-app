@@ -32,6 +32,7 @@ const SearchBox = () => {
           }}
         >
           <input
+            className={classes.searchInput}
             onChange={(e) => setKeyword(e.target.value)}
             type="text"
             placeholder="Search products..."

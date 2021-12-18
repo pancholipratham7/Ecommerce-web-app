@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import classes from "./ProductsListPage.module.css";
 import { Table, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import Loader from "./../components/Loader";
 import Message from "./../components/Message";
 import EditIcon from "@material-ui/icons/Edit";
@@ -11,18 +11,23 @@ import { getProductsList } from "../store/productsSlice";
 import Add from "@material-ui/icons/Add";
 import { deleteproduct } from "../store/productDeleteSlice";
 import { createProduct } from "../store/productCreateSlice";
+import Paginate from "../components/Paginate";
 
 const ProductsListPage = () => {
   // Hooks
   const dispatch = useDispatch();
   const history = useHistory();
+  const params = useParams();
+
+  // getting the page number
+  const pageNumber = params.pageNumber || 1;
 
   //   userInfo state
   const userInfo = useSelector((state) => state.user.userLogin.userInfo);
 
   // productsList from redux
   const productsList = useSelector((state) => state.productsList);
-  const { products, loading, error } = productsList;
+  const { products, loading, error, pages, page } = productsList;
 
   //   productDelete redux state
   const productDelete = useSelector((state) => state.productDelete);
@@ -48,9 +53,17 @@ const ProductsListPage = () => {
     } else if (successCreate) {
       history.push(`/product/${newProduct._id}`);
     } else {
-      dispatch(getProductsList());
+      dispatch(getProductsList("", pageNumber));
     }
-  }, [dispatch, userInfo, history, successDelete, successCreate, newProduct]);
+  }, [
+    dispatch,
+    userInfo,
+    history,
+    successDelete,
+    successCreate,
+    newProduct,
+    pageNumber,
+  ]);
 
   //   product delete handler
   const productDeleteHandler = (id) => {
@@ -84,43 +97,46 @@ const ProductsListPage = () => {
         ) : error ? (
           <Message>{error}</Message>
         ) : (
-          <Table style={{ marginTop: "2rem" }} striped bordered hover>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>PRICE</th>
-                <th>CATEGORY</th>
-                <th>BRAND</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((product) => (
-                <tr key={product._id}>
-                  <td>{product._id}</td>
-                  <td>{product.name}</td>
-                  <td>{product.price}</td>
-                  <td>{product.category}</td>
-                  <td>{product.brand}</td>
-                  <td>
-                    <Link to={`/admin/product/${product._id}/edit`}>
-                      <Button variant="light" className="btn-sm">
-                        <EditIcon />
-                      </Button>
-                    </Link>
-                    <Button
-                      onClick={() => productDeleteHandler(product._id)}
-                      className="btn-sm"
-                      variant="danger"
-                    >
-                      <DeleteIcon />
-                    </Button>
-                  </td>
+          <Fragment>
+            <Table style={{ marginTop: "2rem" }} striped bordered hover>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>NAME</th>
+                  <th>PRICE</th>
+                  <th>CATEGORY</th>
+                  <th>BRAND</th>
+                  <th></th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
+              </thead>
+              <tbody>
+                {products.map((product) => (
+                  <tr key={product._id}>
+                    <td>{product._id}</td>
+                    <td>{product.name}</td>
+                    <td>{product.price}</td>
+                    <td>{product.category}</td>
+                    <td>{product.brand}</td>
+                    <td>
+                      <Link to={`/admin/product/${product._id}/edit`}>
+                        <Button variant="light" className="btn-sm">
+                          <EditIcon />
+                        </Button>
+                      </Link>
+                      <Button
+                        onClick={() => productDeleteHandler(product._id)}
+                        className="btn-sm"
+                        variant="danger"
+                      >
+                        <DeleteIcon />
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+            <Paginate page={page} pages={pages} isAdmin={true} />
+          </Fragment>
         )}
       </div>
     </div>

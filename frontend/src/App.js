@@ -17,13 +17,22 @@ import UserEditPage from "./pages/UserEditPage";
 import ProductsListPage from "./pages/ProductsListPage";
 import ProductEditPage from "./pages/ProductEditPage";
 import AllOrdersList from "./pages/allOrdersListPage";
-import SearchBox from "./components/SearchBox";
+
 function App() {
   return (
     <div className={classes.pageContainer}>
       <Header />
       <main className={classes.mainContainer}>
         <Switch>
+          <Route path="/admin/productsList/:pageNumber" exact>
+            <ProductsListPage />
+          </Route>
+          <Route path="/search/:keyword/page/:pageNumber" exact>
+            <HomePage />
+          </Route>
+          <Route path="/page/:pageNumber">
+            <HomePage />
+          </Route>
           <Route path="/search/:keyword">
             <HomePage />
           </Route>

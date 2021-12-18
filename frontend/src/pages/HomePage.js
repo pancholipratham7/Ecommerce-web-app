@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getProductsList } from "../store/productsSlice";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import Paginate from "../components/Paginate";
 
 const HomePage = () => {
   // Hooks
@@ -15,14 +16,17 @@ const HomePage = () => {
 
   // Product list redux state
   const productsList = useSelector((state) => state.productsList);
-  const { loading, error, products } = productsList;
+  const { loading, error, products, page, pages } = productsList;
 
   // if keyword is present in the url then getting hold of it
   const keyword = params.keyword;
 
+  // getting the hold of page number
+  const pageNumber = params.pageNumber || 1;
+
   useEffect(() => {
-    dispatch(getProductsList(keyword));
-  }, [dispatch, keyword]);
+    dispatch(getProductsList(keyword, pageNumber));
+  }, [dispatch, keyword, pageNumber]);
 
   return (
     <div className={classes.mainContentContainer}>
@@ -33,6 +37,9 @@ const HomePage = () => {
         <Message>No product found....!</Message>
       )}
       {!loading && !error && <Products products={products} />}
+      <div className={classes.paginationContainer}>
+        <Paginate page={page} pages={pages} keyword={keyword ? keyword : ""} />
+      </div>
     </div>
   );
 };
