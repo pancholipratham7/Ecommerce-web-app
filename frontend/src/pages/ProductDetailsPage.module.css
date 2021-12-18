@@ -124,3 +124,111 @@
   border-bottom: 0.05rem solid lightgray;
   padding: 0.58rem 0rem;
 }
+
+.productReviewsContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4rem;
+}
+
+.productReviews {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.7rem;
+}
+
+.productReview {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin: 20px 0px;
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0 0.29rem 0.88rem 0 #474747;
+  border-radius: 7px;
+  height: 180px;
+  padding-left: 10px;
+  color: white;
+}
+
+.comment {
+  margin-top: 0.3rem;
+}
+
+.productReview > span {
+  margin-left: 5px;
+}
+
+.reviewSectionTitle {
+  padding: 10px 0px;
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  border-bottom: 1px solid black;
+}
+
+.writeAReviewSection {
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  margin-top: 3rem;
+  width: 100%;
+}
+
+.ratingInputSection {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+.commentSection {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+.writeTitle {
+  font-size: 2rem;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+  letter-spacing: 0.2rem;
+}
+.w {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 330px;
+  width: 100%;
+  align-items: center;
+  box-shadow: 0 0.29rem 0.88rem 0 #ffffff;
+  border-radius: 10px;
+  background-color: rgb(218, 218, 218);
+  justify-content: space-around;
+  padding: 20px 0px;
+}
+
+.ratingInputSection select {
+  border-radius: 5px;
+  padding: 5px;
+  border: none;
+  margin-top: 0.3rem;
+  background-color: rgb(252, 252, 252);
+  color: rgb(0, 0, 0);
+}
+.commentSection textarea {
+  padding: 5px;
+  margin-top: 0.3rem;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+}
+
+.w button {
+  align-self: flex-start;
+  margin-left: 30px;
+  margin-top: 1rem;
+  background-color: black;
+  color: white;
+  padding: 5px 15px;
+  letter-spacing: 0.1rem;
+}

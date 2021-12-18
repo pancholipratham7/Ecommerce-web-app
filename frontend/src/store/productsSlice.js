@@ -40,15 +40,21 @@ export const productsListActions = productsListSlice.actions;
 export const productsListReducer = productsListSlice.reducer;
 
 // action creator for getting latest products
-export const getProductsList = () => async (dispatch) => {
-  try {
-    dispatch(productsListActions.productsListRequest());
-    let res = await axios.get("http://localhost:5000/api/products");
-    dispatch(productsListActions.productsListSuccess(res.data.products));
-  } catch (err) {
-    dispatch(productsListActions.productsListFailed(err.response.data.message));
-  }
-};
+export const getProductsList =
+  (keyword = "") =>
+  async (dispatch) => {
+    try {
+      dispatch(productsListActions.productsListRequest());
+      let res = await axios.get(
+        `http://localhost:5000/api/products?keyword=${keyword}`
+      );
+      dispatch(productsListActions.productsListSuccess(res.data.products));
+    } catch (err) {
+      dispatch(
+        productsListActions.productsListFailed(err.response.data.message)
+      );
+    }
+  };
 
 // Creating product details slice
 const productDetailsInitialState = {

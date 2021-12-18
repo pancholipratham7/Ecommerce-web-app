@@ -16,6 +16,7 @@ import { productCreateReducer } from "./productCreateSlice";
 import { updateProductReducer } from "./productUpdateSlice";
 import { allOrdersListReducer } from "./allOrdersListSlice";
 import { orderDeliveredReducer } from "./orderDeliveredSlice";
+import { createProductReviewReducer } from "./createProductReviewSlice";
 
 // Creating the store
 const store = configureStore({
@@ -38,6 +39,7 @@ const store = configureStore({
     updateProduct: updateProductReducer,
     allOrdersList: allOrdersListReducer,
     orderDelivered: orderDeliveredReducer,
+    createProductReview: createProductReviewReducer,
   },
 });
 

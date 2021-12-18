@@ -6,6 +6,7 @@ import { NavLink, Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Dropdown } from "react-bootstrap";
 import { logoutUser } from "../store/userSlice";
+import SearchBox from "./SearchBox";
 
 const Header = () => {
   const history = useHistory();
@@ -17,6 +18,7 @@ const Header = () => {
       <div className={classes.headerContentContainer}>
         <div className={classes["brand-name"]}>
           <Link to="/">ShopZilla</Link>
+          <SearchBox />
         </div>
         <div className={classes["nav-items"]}>
           <NavLink to="/cart" className={classes["nav-link"]}>

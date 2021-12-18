@@ -5,8 +5,19 @@ const Product = require("./../models/productModel");
 // get all the products
 // ROUTE:/api/products
 exports.getAllProducts = asyncHandler(async (req, res, next) => {
+  // if keyword is present then getting hold of it
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          // for case insensitive
+          $options: "i",
+        },
+      }
+    : {};
+
   // getting all the products from the database
-  const products = await Product.find({});
+  const products = await Product.find({ ...keyword });
   res.status(200).json({
     status: "success",
     products,
@@ -19,6 +30,7 @@ exports.getProduct = asyncHandler(async (req, res, next) => {
   // gettting the the particular product from the db through id
   const product = await Product.findById(req.params.id);
 
+  console.log(product);
   if (product) {
     res.status(200).json({
       status: "success",
@@ -82,6 +94,63 @@ exports.updateProduct = asyncHandler(async (req, res, next) => {
 
     const updatedProduct = await product.save();
     res.status(200).json(updatedProduct);
+  } else {
+    res.status(404);
+    throw new Error("Product not found");
+  }
+});
+
+// Reviews -----
+
+// create new Review
+exports.createNewReview = asyncHandler(async (req, res, next) => {
+  const { rating, comment } = req.body;
+
+  // finding the product by the id
+  const product = await Product.findById(req.params.id);
+
+  if (product) {
+    // If product found
+
+    // then we need to check whether the product is already reviewed or not
+    // Because one user can review one product only one time
+
+    const alreadyReviewed = product.reviews.find(
+      (r) => r.user.toString() === req.user._id.toString()
+    );
+
+    console.log(alreadyReviewed);
+    // If already Reviewed
+    if (alreadyReviewed) {
+      res.status(400);
+      throw new Error("Product already reviewed");
+    }
+
+    // If not already reviewd then creating the new review
+
+    const review = {
+      name: req.user.name,
+      comment,
+      user: req.user._id,
+      rating: Number(rating),
+    };
+
+    product.reviews.push(review);
+
+    // Updating numReviews
+    product.numReviews = product.reviews.length;
+
+    // Updating product rating
+    product.rating =
+      product.reviews.reduce((acc, item) => {
+        return acc + item.rating;
+      }, 0) / product.reviews.length;
+
+    // Updating product in the database
+    await product.save();
+    res.status(201).json("Review Added");
+
+    // ....
   } else {
     res.status(404);
     throw new Error("Product not found");

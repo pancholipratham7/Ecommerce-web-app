@@ -7,7 +7,7 @@ import classes from "./Rating.module.css";
 // Rating component
 
 const Rating = (props) => {
-  const { rating, numReviews } = props;
+  const { rating, numReviews, reviews } = props;
   return (
     <div className={classes["rating-stars"]}>
       {rating >= 1 ? (
@@ -45,7 +45,9 @@ const Rating = (props) => {
       ) : (
         <Star className="rating-star" />
       )}
-      <span className={classes.f}>{`(${numReviews} reviews)`}</span>
+      {!reviews && (
+        <span className={classes.f}>{`(${numReviews} reviews)`}</span>
+      )}
     </div>
   );
 };
