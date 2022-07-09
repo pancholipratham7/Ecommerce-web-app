@@ -1,4 +1,3 @@
-import React from "react";
 import Products from "../components/Products/Products";
 import classes from "./HomePage.module.css";
 import { useEffect } from "react";

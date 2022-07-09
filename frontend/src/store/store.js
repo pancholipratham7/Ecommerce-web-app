@@ -17,6 +17,7 @@ import { updateProductReducer } from "./productUpdateSlice";
 import { allOrdersListReducer } from "./allOrdersListSlice";
 import { orderDeliveredReducer } from "./orderDeliveredSlice";
 import { createProductReviewReducer } from "./createProductReviewSlice";
+import { topProductsReducer } from "./topProductSlice";
 
 // Creating the store
 const store = configureStore({
@@ -40,6 +41,7 @@ const store = configureStore({
     allOrdersList: allOrdersListReducer,
     orderDelivered: orderDeliveredReducer,
     createProductReview: createProductReviewReducer,
+    topRatedProducts: topProductsReducer,
   },
 });
 

@@ -10,6 +10,9 @@ router
   .route("/:id/reviews")
   .post(isAuthenticated, productController.createNewReview);
 
+// top product route
+router.route("/top").get(productController.getTopProducts);
+
 router
   .route("/:id")
   .get(productController.getProduct)

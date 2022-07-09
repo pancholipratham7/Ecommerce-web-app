@@ -38,6 +38,14 @@ exports.getAllProducts = asyncHandler(async (req, res, next) => {
   });
 });
 
+// TOP PRODUCTS
+exports.getTopProducts = asyncHandler(async (req, res, next) => {
+  // getting the top 3 products
+  const products = await Product.find().sort({ rating: -1 }).limit(3);
+
+  res.json(products);
+});
+
 // get a single product
 // Route: /api/products/:id
 exports.getProduct = asyncHandler(async (req, res, next) => {
